@@ -1,5 +1,7 @@
 auto
 *.aux
+*.bcf
+*.run.xml
 *.glo
 *.idx
 *.log
