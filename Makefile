@@ -94,7 +94,7 @@ $(INC)/src/%: $(SRC)/%
 	$(CODE_CONVERTION) $< > $@
 
 clean:
-	find $(TEX)/ -regextype posix-egrep -type f ! -regex ".*\.(sty|tex|clo|cls|bib|bst|gitignore)" -exec $(RM) {} \; ;
+	find $(TEX)/ -regextype posix-egrep -type f ! -regex "(.*\.(png|sty|tex|clo|cls|bib|bst|gitignore)|.*/graphics/.*|.*/Makefile)" -exec $(RM) {} \; ;
 	$(RM) -r $(DEPS)
 	$(RM) -r $(INC)
 
