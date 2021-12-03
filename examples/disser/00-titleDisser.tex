@@ -1,0 +1,68 @@
+
+%\newlength{\savedparskip}
+\begin{titlepage}
+\vspace{-10ex}
+
+    %\setlength{\savedparskip}{\parskip}
+    %\setlength{\parskip}{0\p@ \@plus \p@}
+    \thispagestyle{empty}
+
+    \vspace{-3ex}
+
+    \IfFileExists{inc/logo.pdf}{      % logo for first page (no compatible with GOST)
+        \begin{flushleft}
+            \parbox[t]{.3\linewidth}{
+                \vspace{-5ex}%\center{\includegraphics[width=.99\linewidth]{inc/logo}}\\
+            }
+%            {{\Nir@OrgLongName}}  % name of Institute
+
+        \end{flushleft}
+        }{
+        \begin{center}
+%            {{\Nir@OrgLongName}} % name of Institute
+
+            \vspace{-1ex}
+                    
+        \end{center}
+    }
+    \begin{centering}
+
+        \vspace{1cm}
+
+        \begin{flushright}
+        	На правах рукописи
+        \end{flushright}
+
+        \vspace{2cm}
+        
+        {\large
+		Корогодин Илья Владимирович
+		}
+        \vspace{1.5cm}
+
+        {\large
+		\textbf{
+		 Разработка новых навигационных сигналов, алгоритмов их обработки и наземных псевдоспутников для повышения точности и помехоустойчивости приемников ГЛОНАСС
+		}
+		}
+
+        \vspace{1cm}
+		Специальность 2.2.16 --- <<Радиолокация и радионавигация>>
+ 
+        \vspace{1cm}
+        Диссертация на соискание учёной степени\\ доктора технических наук
+
+        \vspace{1.5cm}
+        \begin{flushright}
+        	Научный руководитель:\\
+        	доктор технических наук, профессор\\
+        	Перов Александр Иванович
+        \end{flushright}
+        
+        \vspace{1cm}
+		\vfill
+     	Москва~--- 2022
+        
+    \end{centering}
+    %\setlength{\parskip}{\savedparskip}
+\end{titlepage}

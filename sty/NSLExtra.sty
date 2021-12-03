@@ -1,0 +1,356 @@
+% This package designed and commented in Russian (utf-8 encoding).
+% Этот пакет подключается к NSLReport и дополняет его функционалом, которого не было в report
+
+% Используются:
+
+% hyperref    - перекрёстные ссылки активны
+% fontenc     - кодировка шрифтов - T2A
+% inputenc    - входная кодировка - задаётся параметром
+% babel       - настройки языков - русский и английский
+% microtype   - микротипографика, улучшает читаемость текста
+% geometry    - устанавливает размер полей
+% amssymb     - для русских "меньше или равно" "больше или равно"
+% amsmath     - для многоэтажных формул, систем уравнений и т.п.
+% icomma      - умная запятая в формулах, отличает разделитель от перечисления
+% float       - опции для размещения рисунков, таблиц
+% longtable   - многостраничные таблицы, в том числе с переносом шапки
+% graphicx    - возможность указывать опции у includegraphics
+% caption     - оформление заголовков рисунков и таблиц
+% enumitem    - возможность менять лейблы перечислений на ходу
+% blindtext   - длинный текст для тестирования
+
+
+% Пока не используется
+% -mathtext    - для русских букв в формулах
+% footmisc.sty для сносок снизу и нумерации на каждой странице
+% -fancyhdr    - устанавливает колонтитулы
+% -footmisc    - установливает сноски всегда внизу страницы
+% - leqno.clo    формулы правильно
+
+
+\ProvidesPackage{NSLExtra}[2021/11/27 v1.00 Additional Functions and Packages for NSLReport]
+\NeedsTeXFormat{LaTeX2e}
+
+% В report.cls кроличья нора не так глубока
+\newcounter {subsubsubsection}[subsubsection] 
+\renewcommand\thesubsubsubsection{\thesubsubsection.\@arabic\c@subsubsubsection}
+\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\parindent}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+
+
+% Добавляем гипертекстовое оглавление в PDF
+\usepackage[
+bookmarks=true, colorlinks=true, unicode=true,
+urlcolor=black,linkcolor=black, anchorcolor=black,
+citecolor=black, menucolor=black, filecolor=black,
+]{hyperref}
+
+%\RequirePackage{indentfirst}               % Поправлено в объявлении chapter 
+%\RequirePackage{iftex}
+%\RequirePackage{lastpage}                   % Пакет для подсчета общего числа страниц
+
+%\RequirePackage{titlesec} % Пока и без этого пакета все хорошо
+% Тут я убил всю магию бауманцев ради номеров в заголовках разделов
+%\titleformat{\section}[block]
+%{\bfseries}%
+%{\thesection}
+%{5mm}
+%{}
+%\titleformat{\subsection}[block]
+%{\bfseries}%
+%{\thesubsection}
+%{5mm}
+%{}
+%\titleformat{\subsubsection}[block]
+%{\bfseries}%
+%{\thesubsubsection}
+%{5mm}
+%{}           
+
+%\RequirePackage{xstring}
+
+%\newcommand\Gost@Font@Warning[1]{#1 font(s) not found. Switching to default}
+%\newif\ifInvisibleDashes
+%\InvisibleDashesfalse
+
+
+%  перенос в словах-с-дефисом
+\lccode`\-=`\-
+\defaulthyphenchar=127
+
+% \RequirePackage{cmap}%                             % теперь из pdf можно копипастить русский текст % да и так можно, всё ок
+\RequirePackage[T2A]{fontenc}%                       
+\RequirePackage[utf8]{inputenc}%
+\RequirePackage[english,russian]{babel}%
+
+
+
+% GOST 7.32 p. 6.4.6 excluded letters ё, з, й, о, ч, ъ, ы, ь., переопределяем asbuk из бабеля
+\renewcommand*{\Asbuk}[1]{\protect\StrChar{АБВГДЕЖИКЛМНПРСТУФХЦШЩЭЮЯ}{\the\@nameuse{c@#1}}}
+\renewcommand*{\asbuk}[1]{\protect\StrChar{абвгдежиклмнпрстуфхцшщэюя}{\the\@nameuse{c@#1}}}
+
+
+\RequirePackage{enumitem}
+\AddEnumerateCounter{\Asbuk}{\@Asbuk}{Я} % иначе asbuk ломается в перечислениях
+\AddEnumerateCounter{\asbuk}{\@asbuk}{я} % 
+
+%%  \RequirePackage{ucs}%                              %теперь из pdf можно копипастить русский текст % да и так можно, всё ок
+%
+%  \InvisibleDashestrue
+%  \IfStrEq{\Gost@fonts}{times}{
+%   \IfFileExists{cyrtimes.sty}{
+%    \RequirePackage{cyrtimespatched}
+%	\InvisibleDashesfalse
+%   }{
+%    % apt-get install scalable-cyrfonts-tex
+%    \@latex@warning{\Gost@Font@Warning{Cyrtimes}}
+%   }}{}
+%  \IfStrEq{\Gost@fonts}{pscyr}{
+%   \IfFileExists{pscyr.sty}{
+%    \RequirePackage[math]{pscyr}
+%	\InvisibleDashesfalse
+%   }{
+%    \@latex@warning{\Gost@Font@Warning{Pscyr}}
+%   }}{}
+%
+%  \usepackage{upquote}
+%
+%  % аналоги команд из XeLaTeX
+%  \def\cyrillicfonttt{\fontfamily{\ttdefault}\selectfont}
+%  \def\cyrillicfont{\fontfamily{\rmdefault}\selectfont}
+%  \def\cyrillicfontsf{\fontfamily{\sfdefault}\selectfont}
+
+
+%\RequirePackage{flafter}
+
+
+% Формулы
+\RequirePackage{amssymb} % для русских "меньше или равно" "больше или равно"
+\RequirePackage{amsmath} % для многоэтажных формул, систем уравнений и т.п.
+\RequirePackage{icomma}  % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+%\input{leqno.clo}       % Equation numeration % да и так пока норм
+
+% Мы такое не практикуем:
+%\def\@eqnnum{{\theequation}}% убран \normalfont, 
+
+%% Убраны скобки вокруг  \arabic{equation} -- Крищенко В.
+%% В какой-то момент (после ams*?) стало появляться две пары скобок вокруг номеров формул.
+%%\renewcommand{\theequation}{\arabic{equation}}
+%\newlength\Gost@EqRemLen
+%\newlength\Gost@@EqRemLen
+%\newenvironment{eqrem}{%
+% \begin{tabular}{p{\Gost@@EqRemLen}p{\Gost@EqRemLen}}
+%  где
+%}{
+% \end{tabular}
+%}
+%% пояснения м.б. в виде
+%%  \begin{eqrem}
+%%   & X~--- неизвестная \\
+%%   & Y~--- ещё неизвестная \\
+%%  \end{eqrem}
+%
+%% ... допускается нумерация формул в пределах раздела
+%
+
+% Не используем, но интересно:
+%%Перенос формул по =+-
+%%\begingroup
+%%\catcode`\+\active\gdef+{\mathchar8235\nobreak\discretionary{}%
+%% {\usefont{OT1}{cmr}{m}{n}\char43}{}}
+%%\catcode`\-\active\gdef-{\mathchar8704\nobreak\discretionary{}%
+%% {\usefont{OMS}{cmsy}{m}{n}\char0}{}}
+%%\catcode`\=\active\gdef={\mathchar12349\nobreak\discretionary{}%
+%% {\usefont{OT1}{cmr}{m}{n}\char61}{}}
+%%\endgroup
+%%\def\cdot{\mathchar8705\nobreak\discretionary{}%
+%% {\usefont{OMS}{cmsу}{m}{n}\char1}{}}
+%%\def\times{\mathchar8706\nobreak\discretionary{}%
+%% {\usefont{OMS}{cmsy}{m}{n}\char2}{}}
+%%\mathcode`\==32768
+%%\mathcode`\+=32768
+%%\mathcode`\-=32768
+%
+
+
+% Иллюстрации
+
+\RequirePackage{graphicx}   % Пакет для включения рисунков
+
+% Подпись по умолчанию слева (для таблиц, листингов и т.п.)
+\RequirePackage[normal,nooneline]{caption}
+
+% Длинное тире в качестве разделителя
+\DeclareCaptionLabelSeparator*{emdash}{\space\cdash---\space}
+
+% Между подписью и рисунком 10pt
+\captionsetup{labelsep=emdash,aboveskip=10pt,belowskip=0pt,position=bottom}
+
+% У рисунков выравнивание по центру
+\captionsetup[figure]{justification=centering}
+% У таблиц -- слева, зазор 5pt вместо 10
+\captionsetup[table]{position=top,aboveskip=5pt,justification=justified}
+
+%  Подпись к рисунку
+\DeclareCaptionLabelFormat{figure}{Рисунок #2}
+\captionsetup[figure]{labelformat=figure}
+
+
+% Таблицы
+\RequirePackage{longtable} % многостраничные таблицы
+\LTleft=\z@
+\LTright=\fill
+%\newcommand*\subcaption[1]{ % Заголовок без "Таблица..." -- для заголовков на других стр.
+%    \multicolumn{\LT@cols}{p{1\textwidth}}{#1}
+%}
+
+\RequirePackage{float}
+
+
+%% 4.5 Сноски
+%\RequirePackage[perpage,bottom]{footmisc}
+%
+%% Части документа- для выбора вида заголовков и т.д.
+%\newcommand\structmatter{% common code for the front- and back-matter
+%    \setcounter{secnumdepth}{-1}%
+%    \renewcommand\Gost@ChapterStyle{\Gost@StructChapterStyle}%
+%    \setlength\Gost@ChapterIndent{0mm}%
+%}
+%%  введение, обозначения
+%\newcommand\frontmatter{\structmatter}
+%%  основная часть
+%\newcommand\mainmatter{
+%    \setcounter{secnumdepth}{4}
+%    \renewcommand\Gost@ChapterStyle{\Gost@MainChapterStyle}%
+%    \setlength\Gost@ChapterIndent{\Gost@MainChapterIndent}%
+%}
+%%  заключение, библиография
+%\newcommand\backmatter{\structmatter}
+%
+
+% Не практикуем:
+%\newcommand\listoffigures{\chapter*{\listfigurename}\@starttoc{lof}}
+%\newcommand\listoftables{\chapter*{\listtablename}\@starttoc{lot}}
+%
+%\newcommand{\l@part}   {\@dottedtocline{0}{0mm}{1.6em}}
+%%\newcommand{\l@chapter}   {\@dottedtocline{1}{0mm}{1.6em}}
+
+% style for toc item: Становится только хуже с этим блоком
+%\renewcommand*\@dottedtocline[5]{
+%    \ifnum#1>\c@tocdepth \else
+%    \addpenalty{-\@highpenalty}%
+%    \vskip\z@\@plus.2\p@%
+%    \leftskip#2\relax\rightskip\@tocrmarg\parfillskip-\rightskip%
+%    \parindent#2\relax\@afterindenttrue%
+%    \interlinepenalty\@M%
+%    \leavevmode%
+%    \setlength\@tempdima{#3}%
+%    \begingroup%
+%    \parindent\z@\rightskip\@pnumwidth%
+%    \parfillskip-\@pnumwidth%
+%    \leavevmode%\bfseries
+%    \advance\leftskip\@tempdima%
+%    \hskip-\leftskip%
+%    \@chapapp\hspace{.1em}#4\nobreak\dotfill\nobreak\hb@xt@\@pnumwidth{\hss #5}\par%
+%    \penalty\@highpenalty%
+%    \endgroup%
+%\fi%
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%    КОНЕЦ ВСТАВКИ С ПАКТАМИ  %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\No}{\textnumero}  % значок номера для поддержки старых текстов 
+\usepackage{gensymb}            % для значка градуса цельсия
+\usepackage{textcomp}           % нужен gensymb для \micro, иначе лишние ворнинги
+
+\RequirePackage[right=15mm,top=20mm,bottom=20mm,left=30mm,headsep=0pt,includefoot]{geometry} 
+
+\RequirePackage{blindtext}
+
+\RequirePackage{microtype}% полезный пакет для микротипографии, увы под xelatex мало чего умеет, но под pdflatex хорошо улучшает читаемость
+
+% Листинги и их настройки
+\include{listings.inc} 
+
+\endinput
+
+
+% Старые issues, которые у меня не проявляются
+
+
+%
+%% Проценты в URL в библиографии
+%\def\BibUrl{\url}
+%
+%\newcommand\AfterHyperrefFix{% issue #31 fix (https://github.com/latex-g7-32/latex-g7-32/issues/31) 
+% \makeatletter
+% \let\Gost@old@sect\@sect
+% \def\@sect##1##2##3##4##5##6[##7]##8{%
+%   \Gost@old@sect{##1}{##2}{##3}{##4}{##5}{}[{##7}]{%
+%     ##6{##8}%
+%   }%
+% }
+% \makeatother
+%}
+
+%
+%%Чтобы избежать переопределения \cyrdash в bbl файле
+%\def\FixBibliographyCyrdash{
+%  \let\Gost@old@thebibliography\thebibliography
+%  \renewenvironment{thebibliography}[1]{%
+%    \let\Gost@old@ProvideTextCommandDefault\ProvideTextCommandDefault%
+%    \let\ProvideTextCommandDefault\@gobbletwo%
+%    \begin{Gost@old@thebibliography}{##1}%
+%  }{
+%    \end{Gost@old@thebibliography}%
+%    \let\ProvideTextCommandDefault\Gost@old@ProvideTextCommandDefault%
+%  }
+%}
+%
+%%Fix xelatex invisible emdash on CMU, an ugly way
+%%\RequirePackage{color}
+%%\newlength{\emdashlenght}
+%%\settowidth{\emdashlenght}{---}
+%%\newcommand\MakeDashes{
+%%  \usepackage{trimclip}
+%%  \makeatletter
+%%  \let\Gost@old@cyrdash\cyrdash
+%%  \def\cyrdash{%
+%%    \ifdim\f@size pt>13pt%
+%%    \clipbox{0pt}{\hbox to .8em{\textcolor{white}{---}\hskip
+%%    -\emdashlenght \rule[.45ex]{\emdashlenght}{1pt}\hss}}%
+%%    \else%
+%%       \Gost@old@cyrdash%
+%%    \fi%
+%%  }
+%%  \FixBibliographyCyrdash
+%%  \makeatother
+%%}
+%
+%\newcommand\MakeDashesBold{
+%  \usepackage{trimclip}
+%  \makeatletter
+%  \let\Gost@old@cyrdash\cyrdash
+%  \def\cyrdash{%
+%    \ifdim\f@size pt>13pt%
+%       \clipbox{0pt}{\hbox to .8em{\textbf{\Gost@old@cyrdash\hss}}}%
+%    \else%
+%       \Gost@old@cyrdash%
+%    \fi%
+%  }
+%  \FixBibliographyCyrdash
+%  \makeatother
+%}
+%
+%\ifXeTeX
+%\FixBibliographyCyrdash
+%\fi
+%
+
+
