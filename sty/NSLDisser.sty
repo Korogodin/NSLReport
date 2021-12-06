@@ -54,6 +54,13 @@
 \usepackage[backend=biber, style=gost-numeric, sorting=none]{biblatex}
 \usepackage{csquotes}
 
+\usepackage{fancyhdr} % пакет для установки колонтитулов
+\pagestyle{fancy} % смена стиля оформления страниц
+\fancyhf{} % очистка текущих значений
+\fancyhead[C]{\thepage} % установка верхнего колонтитула
+\renewcommand{\headrulewidth}{0pt} % убрать разделительную линию
+\setlength\voffset{-6mm}
+\setlength\headsep{5mm}
 
 % Пригодится для ГОСТ 7-32, в диссере не требуется:
 

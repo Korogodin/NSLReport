@@ -423,7 +423,7 @@
 %\newif\if@breakingbeforechapter\@breakingbeforechaptertrue
 
 \newcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
-                    \thispagestyle{plain}%
+%                    \thispagestyle{plain}%
                     \global\@topnum\z@
                     \@afterindenttrue
                     \secdef\@chapter\@schapter}
