@@ -1,0 +1,47 @@
+% Также можно использовать \Referat, как в оригинале
+%\begin{abstract}
+
+\chapter*{Аннотация}
+
+\ifNSLHaveESKDFrame
+\makeatletter
+\def\@oddhead{\zaglavFrame}
+\def\@oddfoot{}
+\makeatother
+\fi
+
+Настоящий \docTypeFull\ (далее - \docType) содержит \pageref{LastPage}\,стр.%
+    \ifnum \totfig >0
+    , \totfig~рис.%
+%    \else 
+    %, не содержит рисунков%
+    \fi
+    \ifnum \tottab >0
+    , \tottab~табл.%
+    \fi
+%    %
+%    \ifnum \totbib >0
+%    , \totbib~источн.%
+%    \fi
+%    %
+    \ifnum \totapp >0
+    , \totapp~прил.%
+    \else
+    , не содержит приложений.%
+    \fi
+
+
+\ifNSLHaveESKDFrame
+\clearpage
+\makeatletter
+\def\@oddhead{\posledFrame}
+\def\@oddfoot{}
+\makeatother
+\fi
+
+%\end{abstract}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "rpz"
+%%% End: 

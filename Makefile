@@ -22,7 +22,7 @@ EXMPL=examples
 # no .tex allowed in MAINTEX!
 MAINTEX=rpz
 BIBFILE=$(TEX)/rpz.bib
-STYLES=$(TEX)/NSLReport.cls $(TEX)/NSLExtra.sty $(TEX)/NSLDisser.sty 
+STYLES=$(TEX)/NSLReport.cls $(TEX)/NSLExtra.sty $(TEX)/NSLDisser.sty $(TEX)/NSLEskd.sty
 PARTS_TEX = $(wildcard $(TEX)/[0-9][0-9]-*.tex)
 
 ifeq ($(firstword $(LATEX)), pdflatex)
@@ -101,7 +101,9 @@ clean:
 printpdfs: $(PDF)
 	$(GSCONV) $(PDF)
 	
-example: example_disser
+example: example_eskd
+
+example_eskd: example_eskd_fo
 
 example_disser:
 	@if [ ! -d $(TEX) ]; then \
@@ -110,10 +112,18 @@ example_disser:
 	else \
 	  printf "Directory $(TEX) is exist already! If you want to compile an example, you should delete it manually and try again\n"; \
 	fi
+	
+example_eskd_fo:
+	@if [ ! -d $(TEX) ]; then \
+	  cp -r ./$(EXMPL)/eskd_fo $(TEX); \
+	  make --no-print-directory $(PDF); \
+	else \
+	  printf "Directory $(TEX) is exist already! If you want to compile an example, you should delete it manually and try again\n"; \
+	fi	
 
 distclean: clean
 
-PACK = $(addprefix NSLReport, Makefile tex/* src/* utils/* graphics/*)
+PACK = $(addprefix NSLReport, Makefile tex/* src/* utils/*)
 
 tarball: $(PDF) clean
 	cd ..; rm NSLReport.tar.gz; tar -czf NSLReport.tar.gz $(PACK)

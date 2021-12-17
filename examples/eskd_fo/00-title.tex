@@ -1,0 +1,37 @@
+
+\ifNSLHaveESKDFrame
+\makeatletter
+\def\@oddhead{\titleFrame}
+\def\@oddfoot{}
+\makeatother
+\fi
+
+\hfill  
+\vspace{30mm}
+
+\ifNSLHaveLY
+\parbox[t]{.45\linewidth}{
+   УТВЕРЖДЕНО\\
+   \decim\ \docType-ЛУ
+   
+}
+\fi
+
+\hfill 
+\vspace{35mm}
+
+\begin{centering}
+	\MakeUppercase{\devNameFull} \\
+	(\devName) \\
+	{\bfseries {\docTypeFull} \\
+		\decim\ \docType} \\
+\end{centering}
+
+\ifNSLHaveESKDFrame
+\clearpage
+\makeatletter
+\def\@oddhead{}
+\def\@oddfoot{}
+\makeatother
+\fi
+

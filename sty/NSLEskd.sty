@@ -1,0 +1,220 @@
+% This package designed and commented in Russian (utf-8 encoding).
+%
+% Стиль текстового документа по ГОСТ 2.105
+% на основе базового стиля документов Лаборатории навигационных систем
+% Автор - Илья Корогодин
+%
+% Используется совместно с классом NSLReport и расширением NSLExtra
+%
+% Все вопросы, замечания и пожелания сюда: mailto:korogodin@srns.ru
+
+\ProvidesPackage{NSLEskd}[2021/12/15 v1.00 GOST 2.105 modifications for NSLReport]
+
+%%%%%%%%%%%%%%%%%%
+%Latex 2012 and up
+
+\newcommand\orgName      {ФГБОУ ВО <<НИУ «МЭИ>>}
+\newcommand\decim        {МИФТ.469429.113}
+\newcommand\docTypeFull  {Формуляр}
+\newcommand\docType      {ФО}
+\newcommand\devNameFull  {Вундервафля кармическая}
+\newcommand\devName      {ВК}
+\newcommand\razrab       {Иванов}
+\newcommand\prover       {}
+\newcommand\nControl     {Петров}
+\newcommand\ytverd       {Сидоров}
+
+
+\NSLHaveLYtrue           % Использовать ли ЛУ
+\NSLHaveLYtrue           % Использовать ли ЛУ
+\NSLHaveESKDFrametrue    % Использовать ли рамку по ЕСКД
+
+\setlength\parindent{15mm}
+
+\addto\captionsrussian{%
+ \def\contentsname{%
+  Содержание}% по ГОСТ 2.105 элемент называется Содержание
+% \def\bibname{%  % Кто-то ниже (addbibresource?) перетерает bibname
+%  Список~
+%  использованных~
+%  источниковBlaBLa}%
+}
+\newcommand\gostacronymsname{Список сокращений и условных обозначений}
+\newcommand\gostbibname{Список литературы}
+
+\usepackage[backend=biber, style=gost-numeric, sorting=none]{biblatex}
+\usepackage{csquotes}
+
+
+
+% РАМКИ
+
+\textwidth=175mm
+\textheight=260mm
+\oddsidemargin=-.4mm
+\headsep=5mm
+
+\topmargin=-1in
+\unitlength=1mm
+
+% Рамка - титульная страница
+\def\titleFrame{\footnotesize\noindent\hbox to 0pt{%
+\vbox to 0pt
+{%
+\noindent\begin{picture}(185,287)(5,0)
+\linethickness{0.35mm}
+
+\put(0,0)   {\line(0,1){287}}
+\put(185,0) {\line(0,1){287}}
+\put(0,0)   {\line(1,0){185}}
+\put(0,287) {\line(1,0){185}}
+
+\put(-12,  0){\line(0,1){145}}
+\put( -7,  0){\line(0,1){145}}
+\put(-12,  0){\line(1,0){12 }}
+\put(-12, 25){\line(1,0){12 }}
+\put(-12, 60){\line(1,0){12 }}
+\put(-12, 85){\line(1,0){12 }}
+\put(-12,110){\line(1,0){12 }}
+\put(-12,145){\line(1,0){12 }}
+
+\put(-11,  1){\rotatebox{ 90 }{Инв. № подл.}}
+\put(-11, 26){\rotatebox{ 90 }{Подп. и дата}}
+\put(-11, 61){\rotatebox{ 90 }{Взам. инв. №}}
+\put(-11, 86){\rotatebox{ 90 }{Инв. № дубл.}}
+\put(-11,111){\rotatebox{ 90 }{Подп. и дата}}
+
+\end{picture}
+}
+}}
+
+
+% Рамка - заглавная страница
+\def\zaglavFrame{\footnotesize\noindent\hbox to 0pt{%
+\vbox to 0pt
+{%
+\noindent\begin{picture}(185,287)(5,0)
+\linethickness{0.35mm}
+
+\put(0,0)   {\line(0,1){287}}
+\put(185,0) {\line(0,1){287}}
+\put(0,0)   {\line(1,0){185}}
+\put(0,287) {\line(1,0){185}}
+
+\put(-12,  0){\line(0,1){145}}
+\put( -7,  0){\line(0,1){145}}
+\put(-12,  0){\line(1,0){12 }}
+\put(-12, 25){\line(1,0){12 }}
+\put(-12, 60){\line(1,0){12 }}
+\put(-12, 85){\line(1,0){12 }}
+\put(-12,110){\line(1,0){12 }}
+\put(-12,145){\line(1,0){12 }}
+
+\put(-11,  1){\rotatebox{ 90 }{Инв. № подл.}}
+\put(-11, 26){\rotatebox{ 90 }{Подп. и дата}}
+\put(-11, 61){\rotatebox{ 90 }{Взам. инв. №}}
+\put(-11, 86){\rotatebox{ 90 }{Инв. № дубл.}}
+\put(-11,111){\rotatebox{ 90 }{Подп. и дата}}
+
+\put(0, 25){\makebox(7,5){Изм}}
+\put(0, 40){\line(1,0){185}}
+\put(0, 25){\line(1,0){185}}
+\put(0, 30){\line(1,0){65}}
+{\linethickness{0.15mm} \put(0, 35){\line(1,0){65}}}
+%\multiput(0, 5)(0, 5){2}{\line(1,0){65}}
+\put(7, 25){\line(0,1){15}\makebox(10,5){Лист}}
+\put(17,25){\line(0,1){15}\makebox(23,5){№~докум.}}
+\put(40,25){\line(0,1){15}\makebox(15,5){Подп.}}
+\put(55,25){\line(0,1){15}\makebox(10,5){Дата}}
+\put(65,25){\line(0,1){15}\makebox(120,15){\large\rightmark \decim\ \docType}}
+\put(67,12.5) {\begin{minipage}[c][25mm][c]{66mm} \noindent \begin{center} {\normalsize \linespread{1.0} \devNameFull} \\ {\normalsize \docTypeFull} \end{center} \end{minipage}}
+
+\put(0, 0){\makebox(17,5)[l]{\ Утв.}}       \put(17,  0){\makebox(23,5)[l]{\ \ytverd}}
+\put(0, 5){\makebox(17,5)[l]{\ Н.контр.}}   \put(17,  5){\makebox(17,5)[l]{\ \nControl}}
+\put(0, 15){\makebox(17,5)[l]{\ Пров.}}     \put(17, 15){\makebox(17,5)[l]{\ \prover}}
+\put(0, 20){\makebox(17,5)[l]{\ Разраб.}}   \put(17, 20){\makebox(17,5)[l]{\ \razrab}}
+
+\put(0, 40){\line(1,0){185}}
+\put(0, 25){\line(1,0){185}}
+\put(0, 30){\line(1,0){65}}
+{\linethickness{0.15mm} \put(0, 20){\line(1,0){65}}}
+{\linethickness{0.15mm} \put(0, 15){\line(1,0){65}}}
+{\linethickness{0.15mm} \put(0, 10){\line(1,0){65}}}
+{\linethickness{0.15mm} \put(0,  5){\line(1,0){65}}}
+%\multiput(0, 5)(0, 5){2}{\line(1,0){65}}
+\put(17,0){\line(0,1){25}}
+\put(40,0){\line(0,1){25}}
+\put(55,0){\line(0,1){25}}
+\put(65,0){\line(0,1){25}}
+
+% Правая нижняя часть
+\put(135,0) {\line(0,1){25}}
+\put(140,15){\line(0,1){5}}
+\put(145,15){\line(0,1){5}}
+\put(150,15){\line(0,1){10}}
+\put(165,15){\line(0,1){10}}
+\put(135,15){\line(1,0){50}}
+\put(135,20){\line(1,0){50}}
+\put(135,20){\makebox(15,5){Лит.}}
+\put(150,20){\makebox(15,5){Лист}}
+\put(165,20){\makebox(20,5){Листов}}
+\put(135,15){\makebox(5,5){}}
+\put(150,15){\makebox(15,5){\thepage}}
+\put(165,15){\makebox(20,5){\pageref{LastPage}}}
+
+% Для военпреда
+\put(65, 48){\line(1,0){120}}
+\put(65, 62){\line(1,0){120}}
+\put(65, 40){\line(0,1){ 22}}
+\put(79, 48){\line(0,1){ 14}}
+\put(132, 48){\line(0,1){ 14}}
+
+\end{picture}
+}
+}}
+
+% Рамка - последующие страницы
+\def\posledFrame{\footnotesize\noindent\hbox to 0pt{%
+\vbox to 0pt
+{%
+\noindent\begin{picture}(185,287)(5,0)
+\linethickness{0.35mm}
+
+\put(0,0)   {\line(0,1){287}}
+\put(185,0) {\line(0,1){287}}
+\put(0,0)   {\line(1,0){185}}
+\put(0,287) {\line(1,0){185}}
+
+\put(-12,  0){\line(0,1){145}}
+\put( -7,  0){\line(0,1){145}}
+\put(-12,  0){\line(1,0){12 }}
+\put(-12, 25){\line(1,0){12 }}
+\put(-12, 60){\line(1,0){12 }}
+\put(-12, 85){\line(1,0){12 }}
+\put(-12,110){\line(1,0){12 }}
+\put(-12,145){\line(1,0){12 }}
+
+\put(-11,  1){\rotatebox{ 90 }{Инв. № подл.}}
+\put(-11, 26){\rotatebox{ 90 }{Подп. и дата}}
+\put(-11, 61){\rotatebox{ 90 }{Взам. инв. №}}
+\put(-11, 86){\rotatebox{ 90 }{Инв. № дубл.}}
+\put(-11,111){\rotatebox{ 90 }{Подп. и дата}}
+
+\put(0,0){\makebox(7,5){Изм}}
+\put(0, 15){\line(1,0){185}}
+\put(0, 5){\line(1,0){65}}
+{\linethickness{0.15mm} \put(0, 10){\line(1,0){65}}}
+%\multiput(0, 5)(0, 5){2}{\line(1,0){65}}
+\put(7, 0){\line(0,1){15}\makebox(10,5){Лист}}
+\put(17, 0){\line(0,1){15}\makebox(23,5){№~докум.}}
+\put(40, 0){\line(0,1){15}\makebox(15,5){Подп.}}
+\put(55, 0){\line(0,1){15}\makebox(10,5){Дата}}
+\put(65, 0){\line(0,1){15}\makebox(110,15){\large\rightmark \decim\ \docType}}
+\put(175,10){\makebox(10,5){Лист}}
+\put(175, 0){\line(0,1){15}\makebox(10,10){\normalsize\thepage}}
+\put(175,10){\line(1,0){10}}
+\end{picture}
+}
+}}
+
+

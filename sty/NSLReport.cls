@@ -422,7 +422,9 @@
 % Из 2-105, было перед объявлением chapter:
 %\newif\if@breakingbeforechapter\@breakingbeforechaptertrue
 
-\newcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
+\newcommand\chapter{{\addtocounter{totfigures}{\value{figure}}}
+                    {\addtocounter{tottables}{\value{table}}}
+                     \if@openright\cleardoublepage\else\clearpage\fi
 %                    \thispagestyle{plain}%
                     \global\@topnum\z@
                     \@afterindenttrue
@@ -581,7 +583,8 @@
            
 % Верстка paragraph в основном тексте
 \def\@makeparagraphhead#1{%
-\noindent\space\space\theparagraph\space#1
+%\noindent\space\space\theparagraph\space#1
+{\noindent\raggedleft\theparagraph\interlinepenalty\@M\hspace{2mm}#1\hspace{-3mm} }
 }
 
 % Используется для paragraph*
@@ -605,7 +608,8 @@
            
 % Верстка subparagraph в основном тексте
 \def\@makesubparagraphhead#1{%
-\noindent\space\space\thesubparagraph\space#1
+%\noindent\space\space\thesubparagraph\space#1
+{\noindent\raggedleft\thesubparagraph\interlinepenalty\@M\hspace{2mm}#1\hspace{-3mm} }
 }
 
 % Используется для paragraph*
@@ -827,6 +831,8 @@
 
 % Приложения
 \newcommand\appendix{\par
+  \setcounter{secnumdepth}{4}
+  \NSL@HaveAppendicestrue
   \setcounter{chapter}{0}%
   \setcounter{section}{0}%
   \gdef\@chapapp{\appendixname}%
@@ -1075,7 +1081,7 @@
 %      \penalty\@highpenalty
 %    \endgroup
 %  \fi}
-\newcommand{\l@chapter}         {\@dottedtocline{1}{0mm}{1em}} % простой вариант из 2-105
+\newcommand{\l@chapter}         {\@dottedtocline{1}{0mm}{1.2em}} % простой вариант из 2-105
 
 %\newcommand*\l@section         {\@dottedtocline{1}{1.5em}{2.3em}} % так было в report
 \newcommand*\l@section          {\@dottedtocline{1}{.8em}{2em}} 
