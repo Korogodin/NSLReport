@@ -64,14 +64,18 @@ make docker
 
 ```sudo apt-get update
    sudo apt-get install -y \
-            latexmk \
-            texlive-latex-extra \
-            texlive-lang-cyrillic \
-            texlive-luatex \
-            texlive-extra-utils \
-            cm-super \
+            make \
             inkscape \
-            imagemagick 
+            imagemagick \            
+            latexmk \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-extra-utils \
+            texlive-lang-cyrillic \
+            texlive-luatex \ 
+            texlive-bibtex-extra \
+            biber \
+            cm-super 
 ```
 
 и далее по обстоятельсвам. 
