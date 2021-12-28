@@ -25,6 +25,9 @@ BIBFILE=$(TEX)/rpz.bib
 STYLES=$(TEX)/NSLReport.cls $(TEX)/NSLExtra.sty $(TEX)/NSLDisser.sty $(TEX)/NSLEskd.sty
 PARTS_TEX = $(wildcard $(TEX)/[0-9][0-9]-*.tex)
 
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+mkfile_dir  := $(dir $(mkfile_path))
+
 ifeq ($(firstword $(LATEX)), pdflatex)
 	CODE_CONVERTION=iconv -f UTF-8 -t KOI8-R 
 else
@@ -120,6 +123,13 @@ example_eskd_fo:
 	else \
 	  printf "Directory $(TEX) is exist already! If you want to compile an example, you should delete it manually and try again\n"; \
 	fi	
+
+image:
+	sudo docker build -t navsyslab/nslreport:v1 .
+	
+docker: image
+	sudo docker run --rm -it -v $(mkfile_dir):/tmp/report navsyslab/nslreport:v1 make -C /tmp/report
+	 
 
 distclean: clean
 
