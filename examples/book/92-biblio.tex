@@ -1,0 +1,17 @@
+% % Список литературы при помощи Biber
+% Юзать так:
+%
+% pdflatex rpz
+% biber rpz
+% pdflatex rpz
+
+{
+\renewcommand*{\bibfont}{\small}
+\ifdefined\gostbibname \renewcommand\bibname{\gostbibname} \fi
+\printbibliography
+}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "rpz"
+%%% End: 

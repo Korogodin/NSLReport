@@ -22,7 +22,7 @@ EXMPL=examples
 # no .tex allowed in MAINTEX!
 MAINTEX=rpz
 BIBFILE=$(TEX)/rpz.bib
-STYLES=$(TEX)/NSLReport.cls $(TEX)/NSLExtra.sty $(TEX)/NSLDisser.sty $(TEX)/NSLEskd.sty
+STYLES=$(TEX)/NSLReport.cls $(TEX)/NSLExtra.sty $(TEX)/NSLDisser.sty $(TEX)/NSLEskd.sty $(TEX)/NSLBook.sty
 PARTS_TEX = $(wildcard $(TEX)/[0-9][0-9]-*.tex)
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
@@ -119,6 +119,14 @@ example_disser:
 example_eskd_fo:
 	@if [ ! -d $(TEX) ]; then \
 	  cp -r ./$(EXMPL)/eskd_fo $(TEX); \
+	  make --no-print-directory $(PDF); \
+	else \
+	  printf "Directory $(TEX) is exist already! If you want to compile an example, you should delete it manually and try again\n"; \
+	fi	
+	
+example_book:
+	@if [ ! -d $(TEX) ]; then \
+	  cp -r ./$(EXMPL)/book $(TEX); \
 	  make --no-print-directory $(PDF); \
 	else \
 	  printf "Directory $(TEX) is exist already! If you want to compile an example, you should delete it manually and try again\n"; \

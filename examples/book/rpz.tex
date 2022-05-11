@@ -1,0 +1,46 @@
+%\documentclass[14pt]{report} 
+\documentclass[14pt]{../sty/NSLReport} % Базовый стиль - поправленный стандартный report, они взаимозаменяемы
+%\documentclass[14pt, twoside]{../sty/NSLReport} % Включает режим двусторонний режим, неудобно для просмотра pdf
+
+\RequirePackage{../sty/NSLExtra} % Расширение над NSLReport, включая longtable, caption, biblatex и прочие must have пакеты
+
+% Не забудьте переключить титульный лист
+\RequirePackage{../sty/NSLBook} % Изменения стиля под ГОСТ Р 7.0.11
+
+\include{preamble.inc} % Особые пакеты для этого документа
+\include{macros.inc}   % Особые макросы для этого документа
+
+\begin{document}
+
+\include{00-titleBook}
+\title{}
+
+\include{00-abstract} 
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+%\include{00-acro}
+
+\include{02-intro}
+
+\include{20-analysis}
+
+\include{40-simulation}
+
+\include{90-conclusion}%% заключение
+
+\include{92-biblio}
+
+\appendix   % Тут идут приложения
+
+\include{95-appendix1}
+
+\include{99-lastpage}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "rpz"
+%%% End: 

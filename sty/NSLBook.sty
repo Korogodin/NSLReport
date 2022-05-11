@@ -1,0 +1,99 @@
+% This package designed and commented in Russian (utf-8 encoding).
+%
+% Стиль для оформления книг
+% на основе базового стиля документов Лаборатории навигационных систем
+% Автор - Илья Корогодин
+%
+% Используется совместно с классом NSLReport и расширением NSLExtra
+%
+% Все вопросы, замечания и пожелания сюда: mailto:korogodin@srns.ru
+
+\ProvidesPackage{NSLBook}[2022/05/10 v1.00 Book modifications for NSLReport]
+
+\newif\ifrusver
+\rusvertrue
+
+\addto\captionsrussian{%
+ \def\contentsname{%
+  Содержание}%
+% \def\bibname{%  % Кто-то ниже (addbibresource?) перетирает bibname
+%  Список~
+%  использованных~
+%  источниковBlaBLa}%
+}
+\newcommand\gostacronymsname{Список сокращений и условных обозначений}
+\newcommand\gostbibname{Список литературы}
+
+% п. 5.7.3 ГОСТ Р 7.0.11:
+\geometry{right=15mm}
+\geometry{left=30mm}
+\geometry{bottom=20mm}
+\geometry{top=20mm}
+\geometry{ignorefoot}% считать от нижней границы текста
+
+
+\usepackage[backend=biber, bibencoding=utf8, style=gost-numeric, sorting=none,
+            refsegment=chapter,%<-- starts a new refsegment at each \section
+            ]{biblatex}
+\defbibheading{subbibforcha}[\refname\ для Главы~\thechapter]{%
+    \section*{#1}}            
+\usepackage{csquotes}
+
+
+% Верстка заголовка chapter:      
+\newcommand\NSL@BookChapterStyle{\huge\bfseries}
+\renewcommand\@makechapterhead[1]{%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+    \hspace{\NSL@ChapterIndent}\NSL@BookChapterStyle%
+%        \ifx\@chapapp\@empty%
+            \\ \Large \chaptername~\thechapter \\ \p@   %\thechapter\hskip 5\p@%
+%        \else%
+%            \@chapapp\space\thechapter\hskip 5\p@%
+%        \fi
+    \fi
+    \interlinepenalty\@M
+    %\NSL@ChapterStyle{#1}\par\nobreak
+    \NSL@BookChapterStyle{#1}\par\nobreak
+    %\vspace{\GostAfterTitleSkip}
+    \vspace{3cm}
+  }}
+  
+
+\usepackage{fancyhdr}   % footnote 
+\pagestyle{fancy}
+%\lhead{\@author}
+%\lhead{\nouppercase{\leftmark}}
+\lhead{\small \nouppercase{\leftmark}}
+\chead{}
+%\rhead{\@title}
+\rhead{}
+%\lfoot{}
+\cfoot{}
+%\rfoot{\thepage}
+\fancyfoot[LE,RO]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\fancypagestyle{chapterpage}{
+  \lhead{}
+  \rhead{}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+\setlength\voffset{-6mm}
+\setlength\headsep{5mm}
+
+\usepackage{float}
+%\usepackage{newfloat}
+\floatstyle{ruled}
+\newfloat{example}{thp}{lop}[chapter]
+\restylefloat*{example}
+\ifrusver
+\floatname{example}{Пример}
+\else
+\floatname{example}{Example}
+\fi
+
+
+
