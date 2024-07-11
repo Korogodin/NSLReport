@@ -75,7 +75,7 @@ $(INC)/svg/%.pdf : $(SVG)/%.svg
 		
 # 	inkscape -A $@ $<
 # Обрезаем поля в svg автоматом:
-	inkscape -A $(INC)/svg/$*-tmp.pdf $<
+	inkscape --export-filename=$(INC)/svg/$*-tmp.pdf $<
 	cd $(INC)/svg && \
 		$(PDFTRIMWHITE) $*-tmp.pdf $*.pdf && \
 		rm $*-tmp.pdf
