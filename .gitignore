@@ -46,3 +46,4 @@ tex/inc
 utils/install.fish
 utils/install.sh
 build
+output
