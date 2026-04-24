@@ -47,3 +47,4 @@ utils/install.fish
 utils/install.sh
 build
 output
+.DS_Store
